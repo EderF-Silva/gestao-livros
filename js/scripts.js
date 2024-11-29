@@ -12,8 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (!user || !valueSession || user.email !== valueSession) {
     if (!window.location.pathname.includes("index.html")) {
-      sessionStorage.removeItem("userConectado");
-      localStorage.removeItem("userConectado");
+      // sessionStorage.removeItem("userConectado");
+      // localStorage.removeItem("userConectado");
 
       window.location = "index.html";
       alert("Realize o Login novamente.");
@@ -112,7 +112,7 @@ function loginUsuarioLocalStorage() {
       let user = localStorage.getItem("userConectado");
       let userResult = JSON.parse(user);
 
-      if (userResult.email !== emailValue) {
+      if (!userResult || !userResult || userResult.email !== emailValue) {
         alert(
           "O Email informado não foi encontrado. \nPor favor, realize o cadastro clicando no botão CADASTRE-SE."
         );
