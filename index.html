@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gestão de Livros</title>
+
+  <!-- CSS -->
+  <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+  <link href="css/bootstrap.min.css" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet" />
+
+
+  <!-- Link para o Favicon -->
+  <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
+
+
+</head>
+
+<body>
+  <!-- Pagina Inicial - Header -->
+  <header class="container">
+    <section class="row d-flex justify-content-center align-items-center vh-100">
+      <article class="px-4 py-5 my-5 text-center align-middle">
+        <img class="d-block mx-auto mb-4" src="img/capa-livro.png" alt="Ícone de capa de livro" width="100" />
+        <h1 class="display-5 fw-bold">Gestão de Livros</h1>
+        <div class="col-lg-6 mx-auto">
+          <p class="lead mb-4">
+            Cadastre todos os livros que está lendo, os que já leu e aqueles
+            que pretende ler no futuro.
+          </p>
+          <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalCadastro">
+              Cadastre-se
+            </button>
+
+            <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#modalLogin">
+              Conectar
+            </button>   
+          </div>
+        </div>
+      </article>
+    </section>
+  </header>
+
+  <!-- Modal para Cadastro -->
+  <div class="modal fade" id="modalCadastro" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">
+            Cadastre-se
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <form id="form-cadastro">
+            <div class="mb-3">
+              <label for="email" class="form-label">Email (*)</label>
+              <input type="email" class="form-control" id="email" value="" required aria-describedby="emailHelp" />
+              <div id="emailHelp" class="form-text">
+                Informe seu email
+              </div>
+            </div>
+          </form>
+
+          <div class="mb-3">
+            <p>Os campos marcados com (*) são de preenchimento obrigatório.</p>
+            <p class="my-4">
+              <strong>Importante:</strong> O Cadastro de livros é persistido somente neste navegador utilizando o <strong>localStorage e sessionStorage com a chave email</strong>. Ao limpar os cookies as informações serão removidas. 
+             </p>
+          </div>
+        </div>
+
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Fechar
+          </button>
+          <button type="button" id="btn-cadastro-inicial" class="btn btn-dark">Continuar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    <!-- Modal para Login -->
+  <div class="modal fade" id="modalLogin" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">
+            Conectar-se
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <form id="form-login">
+            <div class="mb-3">
+              <label for="email-login" class="form-label">Email (*)</label>
+              <input type="email" class="form-control" id="email-login" value="" required aria-describedby="emailHelpLogin" />
+              <div id="emailHelpLogin" class="form-text">
+                Informe seu email
+              </div>
+            </div>
+          </form>
+
+          <div class="mb-3">
+            <p>Os campos marcados com (*) são de preenchimento obrigatório.</p>
+            <p class="my-4">
+              <strong>Importante:</strong> O Cadastro de livros é persistido somente neste navegador utilizando o <strong>localStorage e sessionStorage com a chave email</strong>. Ao limpar os cookies as informações serão removidas. 
+             </p>
+          </div>
+        </div>
+
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Fechar
+          </button>
+          <button type="button" id="btn-login" class="btn btn-dark">Continuar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/scripts.js"></script>
+
+</body>
+
+</html>

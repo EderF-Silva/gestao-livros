@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gestão de Livros</title>
+
+    <!-- CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+
+    <!-- Link para o Favicon -->
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
+
+    <!-- Icones -->
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="d-flex">
+        <aside id="sidebar" class="sidebar-toggle">
+            <div class="sidebar-logo">
+                <a href="#">Gestão de Livros</a>
+            </div>
+            <ul class="sidebar-nav p-0">
+                <li class="sidebar-header">Menu</li>
+                <li class="sidebar-item">
+                    <a href="instrucoes.html" class="sidebar-link">
+                        <i class="lni lni-help"></i>
+                        <span>Instruções</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="meus-livros.html" class="sidebar-link">
+                        <i class="lni lni-book"></i>
+                        <span>Estante de Livros</span>
+                    </a>
+                </li>
+            </ul>
+            <!-- Sidebar Navigation Ends -->
+            <div class="sidebar-footer">
+                <a href="index.html" class="sidebar-link">
+                    <i class="lni lni-exit"></i>
+                    <span>Sair</span>
+                </a>
+            </div>
+        </aside>
+
+        <div class="main">
+            <nav class="navbar navbar-expand">
+                <button class="toggler-btn" type="button">
+                    <i class="lni lni-text-align-left"></i>
+                </button>
+            </nav>
+            <main class="p-3">
+                <div class="container-fluid">
+                    <section class="row d-flex justify-content-center align-items-center">
+                        <article class="px-4 py-5 my-5 text-center align-middle">
+                            <img class="d-block mx-auto mb-4" src="img/capa-livro.png" alt="Ícone de capa de livro"
+                                width="100" />
+                            <h1 class="display-5 fw-bold">Instruções</h1>
+                            <div class="col-lg-12 mx-auto">
+                                <p class="lead mb-4">
+                                    Cadastre todos os livros que está lendo, os que já leu e
+                                    aqueles que pretende ler no futuro.
+                                </p>
+                            </div>
+
+                            <div class="row ">
+                                <div class="d-flex justify-content-center">
+                                    <div class="card col-md-6 mx-1" style="width: 18rem">
+                                        <div class="card-body">
+                                            <h5 class="card-title">1º Passo</h5>
+                                            <p class="card-text">
+                                                Navegue até a página estante de livros e clique em adicionar livro.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="card col-md-6 mx-1" style="width: 18rem">
+                                        <div class="card-body">
+                                            <h5 class="card-title">2º Passo</h5>
+                                            <p class="card-text">
+                                                Em seu computador ou dispositivo movel arraste e solte para atualizar o
+                                                status do seu livro.
+                                            </p>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                        </article>
+                    </section>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/scripts.js"></script>
+</body>
+
+</html>
