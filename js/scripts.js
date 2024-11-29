@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let valueSession = sessionStorage.getItem("userConectado");
 
   if (!user || !valueSession || user.email !== valueSession) {
-    if (window.location.pathname !== "/index.html") {
+    if (!window.location.pathname.includes("index.html")) {
       sessionStorage.removeItem("userConectado");
       localStorage.removeItem("userConectado");
 
@@ -140,27 +140,96 @@ function kanban() {
   let touchStartX = 0,
     touchStartY = 0;
 
-  // Adiciona Livros
   const addBookBtn = document.getElementById("addBookBtn");
 
   if (addBookBtn) {
     addBookBtn.addEventListener("click", () => {
       const bookName = prompt("Digite o nome do livro:");
       if (bookName) {
-        const newBook = document.createElement("div");
-        const cardId = `${bookName}-tag${Date.now()}`;
-        newBook.id = cardId;
-        newBook.className = "kanban-card";
-        newBook.draggable = true;
-        newBook.textContent = bookName;
-
-        addDragAndDropHandlers(newBook);
+        const newBook = createCardElement(bookName);
         document.getElementById("aguardandoLeitura").appendChild(newBook);
 
         // Salvar na localStorage
-        saveCardToLocalStorage(cardId, "aguardandoLeitura");
+        saveCardToLocalStorage(newBook.id, "aguardandoLeitura");
       }
     });
+  }
+
+  function createCardElement(bookName) {
+    const cardId = `${bookName}-tag${Date.now()}`;
+    const card = document.createElement("div");
+    card.id = cardId;
+    card.className = "kanban-card";
+    card.draggable = true;
+
+    card.innerHTML = `
+      <span>${bookName}</span>
+      <div class="card-actions">
+        <button class="btn btn-sm btn-primary edit-btn">Editar</button>
+        <button class="btn btn-sm btn-danger delete-btn">Remover</button>
+      </div>
+    `;
+
+    addDragAndDropHandlers(card);
+    addCardActionHandlers(card);
+
+    return card;
+  }
+
+  function addCardActionHandlers(card) {
+    const editBtn = card.querySelector(".edit-btn");
+    const deleteBtn = card.querySelector(".delete-btn");
+
+    if (editBtn) {
+      editBtn.addEventListener("click", () => {
+        const currentBookName = card.querySelector("span").textContent;
+        const newBookName = prompt("Editar o nome do livro:", currentBookName);
+
+        if (newBookName && newBookName !== currentBookName) {
+          const oldCardId = card.id;
+          const newCardId = `${newBookName}-tag${Date.now()}`;
+
+          // Atualizar o conteúdo do card
+          card.querySelector("span").textContent = newBookName;
+          card.id = newCardId;
+
+          // Atualizar no localStorage
+          updateCardInLocalStorage(oldCardId, newCardId, card.parentElement.id);
+        }
+      });
+    }
+
+    if (deleteBtn) {
+      deleteBtn.addEventListener("click", () => {
+        if (confirm("Deseja realmente remover este card?")) {
+          card.remove();
+
+          removeCardFromLocalStorage(card.id);
+        }
+      });
+    }
+  }
+
+  function updateCardInLocalStorage(oldCardId, newCardId, columnId) {
+    let user = JSON.parse(localStorage.getItem("userConectado"));
+    const savedCards =
+      JSON.parse(localStorage.getItem("data-user-" + user.email)) || {};
+
+    // Atualizar a chave do card no localStorage
+    delete savedCards[oldCardId];
+    savedCards[newCardId] = columnId;
+
+    localStorage.setItem("data-user-" + user.email, JSON.stringify(savedCards));
+  }
+
+  function removeCardFromLocalStorage(cardId) {
+    let user = JSON.parse(localStorage.getItem("userConectado"));
+    const savedCards =
+      JSON.parse(localStorage.getItem("data-user-" + user.email)) || {};
+
+    // Remover o card da lista de cards salvos
+    delete savedCards[cardId];
+    localStorage.setItem("data-user-" + user.email, JSON.stringify(savedCards));
   }
 
   function addDragAndDropHandlers(card) {
@@ -213,7 +282,6 @@ function kanban() {
 
   const columns = document.querySelectorAll(".kanban-column");
   columns.forEach((column) => {
-    // Suporte a desktop
     column.addEventListener("dragover", (e) => {
       e.preventDefault();
       e.dataTransfer.dropEffect = "move";
@@ -240,7 +308,7 @@ function kanban() {
     let valueSession = sessionStorage.getItem("userConectado");
 
     if (!user || !valueSession || user.email !== valueSession) {
-      if (window.location.pathname !== "/index.html") {
+      if (!window.location.pathname.includes("index.html")) {
         sessionStorage.removeItem("userConectado");
         localStorage.removeItem("userConectado");
 
@@ -261,7 +329,7 @@ function kanban() {
     let valueSession = sessionStorage.getItem("userConectado");
 
     if (!user || !valueSession || user.email !== valueSession) {
-      if (window.location.pathname !== "/index.html") {
+      if (!window.location.pathname.includes("index.html")) {
         sessionStorage.removeItem("userConectado");
         localStorage.removeItem("userConectado");
 
@@ -269,31 +337,22 @@ function kanban() {
         alert("Realize o Login novamente.");
         return;
       }
+      return;
     }
 
     const savedCards =
       JSON.parse(localStorage.getItem("data-user-" + user.email)) || {};
+
     Object.entries(savedCards).forEach(([cardId, columnId]) => {
       const column = document.getElementById(columnId);
       if (column) {
-        const card = document.createElement("div");
+        const bookName = cardId.split("-")[0];
+        const card = createCardElement(bookName);
         card.id = cardId;
-        card.className = "kanban-card";
-        card.draggable = true;
-
-        card.textContent = cardId.split("-")[0];
-        addDragAndDropHandlers(card);
         column.appendChild(card);
       }
     });
   }
 
-  const cards = document.querySelectorAll(".kanban-card");
-  cards.forEach((card) => {
-    addDragAndDropHandlers(card);
-    saveCardToLocalStorage(card.id, card.parentElement.id); // Salva o estado inicial
-  });
-
-  //Recarrega
   window.onload = loadCardsFromLocalStorage;
 }
